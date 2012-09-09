@@ -1,0 +1,30 @@
+[user]
+	name = Bobby Norton
+	email = bobby@testedminds.com
+[alias]
+	st = status
+	br = branch
+	ci = commit
+	co = checkout
+	logp = log -p
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	ls = ls-files
+[color]
+	ui = auto
+[color "branch"]
+	current = yellow reverse
+	local = green
+	remote = red
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[branch "master"]
+  remote = origin
+  merge = refs/heads/master
