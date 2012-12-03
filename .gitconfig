@@ -25,6 +25,10 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+[core]
+        excludesfile = "~/.gitignore_global"
 [branch "master"]
-  remote = origin
-  merge = refs/heads/master
+  	remote = origin
+  	merge = refs/heads/master
+[heroku]
+	account = bobby
