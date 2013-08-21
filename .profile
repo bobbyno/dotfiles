@@ -1,4 +1,4 @@
-export EDITOR='subl -w'
+export EDITOR='emacsclient'
 export LESS="-Nmsx4erX"
 export PATH=$HOME/.rvm/bin:/usr/local/sbin:/usr/local/bin:$PATH
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
@@ -22,5 +22,5 @@ alias ec="emacsclient"
 
 PS1="[\t][\u:\w]\$ "
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
 
