@@ -19,6 +19,7 @@ alias frlm="foreman run lein midje"
 alias mpfs="mvn package && foreman start"
 alias fs="foreman start"
 alias ec="emacsclient -n"
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs &"
 
 PS1="[\t][\u:\w]\$ "
 

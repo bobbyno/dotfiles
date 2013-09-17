@@ -66,3 +66,8 @@
 (require 'windata)
 (autoload 'dirtree "dirtree" "Add directory to tree view" t)
 
+;; turn off auto fill
+(auto-fill-mode -1)
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
+
+
