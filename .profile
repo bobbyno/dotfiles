@@ -18,7 +18,7 @@ alias ci="ssh teamcity@ec2-107-20-57-39.compute-1.amazonaws.com"
 alias frlm="foreman run lein midje"
 alias mpfs="mvn package && foreman start"
 alias fs="foreman start"
-alias ec="emacsclient"
+alias ec="emacsclient -n"
 
 PS1="[\t][\u:\w]\$ "
 
