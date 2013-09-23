@@ -70,4 +70,6 @@
 (auto-fill-mode -1)
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
-
+;; easily resize windows
+(global-set-key (kbd "C-x <up>") 'enlarge-window)
+(global-set-key (kbd "C-x <down>") 'shrink-window)
