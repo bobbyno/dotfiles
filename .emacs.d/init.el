@@ -73,3 +73,11 @@
 ;; easily resize windows
 (global-set-key (kbd "C-x <up>") 'enlarge-window)
 (global-set-key (kbd "C-x <down>") 'shrink-window)
+
+;; find file in project
+(global-set-key (kbd "C-x f") 'find-file-in-project)
+(setq-default ffip-project-file '(".git" "project.clj" "pom.xml") )
+
+;; skip backups
+(setq make-backup-files nil)
+(setq auto-save-default nil)
