@@ -48,12 +48,13 @@
 ;; ispell
 (setq-default ispell-program-name "aspell")
 
-;; ws-trim
+;; whitespace tweaks
 (global-ws-trim-mode t)
 (set-default 'ws-trim-level 2)
 (setq ws-trim-global-modes '(guess (not message-mode eshell-mode)))
 
-;; Turn off auto-save. No more #foo# files
+;; Turn off auto-save. No #foo# for you.
+(setq make-backup-files nil)
 (setq auto-save-default nil)
 
 ;; No scratch message
@@ -78,6 +79,25 @@
 (global-set-key (kbd "C-x f") 'find-file-in-project)
 (setq-default ffip-project-file '(".git" "project.clj" "pom.xml") )
 
-;; skip backups
-(setq make-backup-files nil)
-(setq auto-save-default nil)
+;; window configs
+
+;; Open one window for source, one for test, and a slightly smaller one for a repl
+(defun clojure ()
+  (interactive)
+  (split-window-vertically)
+  (split-window-horizontally)
+  (nrepl-jack-in)
+  (enlarge-window 5))
+
+;; customize indentation for midje facts
+(require 'clojure-mode)
+(define-clojure-indent
+  (fact 'defun)
+  (facts 'defun)
+  (fact-group 'defun)
+  (silent-fact 'defun)
+  (future-fact 'defun)
+  (tabular 'defun)
+  (against-background 'defun)
+  (error-let 'defun)
+  (provided 0))
