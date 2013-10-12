@@ -124,3 +124,17 @@
 ;; enable paredit in the nrepl buffer
 (add-hook 'nrepl-connected-hook 'paredit-mode)
 
+;; override function from nrepl.el to require doc, javadoc, et al. in
+;; repl-requires
+(eval-after-load "nrepl"
+  '(defun nrepl-set-ns (ns)
+    "Switch the namespace of the REPL buffer to NS."
+    (interactive (list (nrepl-current-ns)))
+    (if ns
+        (with-current-buffer (nrepl-current-repl-buffer)
+          (nrepl-send-string (format "(in-ns '%s)" ns)
+                             (nrepl-handler (current-buffer)))
+          (nrepl-send-string "(apply require clojure.main/repl-requires)"
+                             (nrepl-handler (current-buffer))))
+      (message "Sorry, I don't know what the current namespace is."))))
+
