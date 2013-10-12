@@ -101,3 +101,26 @@
   (against-background 'defun)
   (error-let 'defun)
   (provided 0))
+
+;; classic lambda for fn
+(remove-hook 'clojure-mode-hook 'esk-pretty-fn)
+
+(eval-after-load 'clojure-mode
+    '(font-lock-add-keywords
+      'clojure-mode `(("(\\(fn\\>\\)"
+                       (0 (progn (compose-region (match-beginning 1)
+                                                 (match-end 1) (make-char 'greek-iso8859-7 107))
+                                 nil))))))
+
+
+;; nrepl config
+;; enable eldoc in clojure buffers
+(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+
+;; hide the *nrepl-connection* and *nrepl-server* buffers from
+;; appearing in switch-to-buffer (C-x b)
+(setq nrepl-hide-special-buffers t)
+
+;; enable paredit in the nrepl buffer
+(add-hook 'nrepl-connected-hook 'paredit-mode)
+
