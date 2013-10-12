@@ -89,6 +89,8 @@
   (nrepl-jack-in)
   (enlarge-window 5))
 
+(global-set-key (kbd "<f9>") 'clojure)
+
 ;; customize indentation for midje facts
 (require 'clojure-mode)
 (define-clojure-indent
@@ -111,7 +113,6 @@
                        (0 (progn (compose-region (match-beginning 1)
                                                  (match-end 1) (make-char 'greek-iso8859-7 107))
                                  nil))))))
-
 
 ;; nrepl config
 ;; enable eldoc in clojure buffers
@@ -137,4 +138,6 @@
           (nrepl-send-string "(apply require clojure.main/repl-requires)"
                              (nrepl-handler (current-buffer))))
       (message "Sorry, I don't know what the current namespace is."))))
+
+
 
