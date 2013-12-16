@@ -4,4 +4,5 @@
         [lein-pprint "1.1.1"]
         [lein-midje "3.1.2-bobbyno"]
         [compojure/lein-template "0.3.0"]
+        [com.jakemccrary/lein-test-refresh "0.2.0"]
 ]}}

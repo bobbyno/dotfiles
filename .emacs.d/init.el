@@ -1,6 +1,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
 (defvar my-packages '(starter-kit
@@ -15,7 +17,7 @@
                       yaml-mode
                       clojure-mode
                       clojure-test-mode
-                      nrepl
+                      cider
                       ws-trim))
 
 (dolist (p my-packages)
@@ -90,7 +92,7 @@
   (interactive)
   (split-window-vertically)
   (split-window-horizontally)
-  (nrepl-jack-in)
+  (cider-jack-in)
   (enlarge-window 5))
 
 (global-set-key (kbd "<f9>") 'clojure)
@@ -120,38 +122,63 @@
 
 ;; nrepl config
 ;; enable eldoc in clojure buffers
-(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+
+(add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
+(add-hook 'cider-mode-hook (lambda ()
+                             (cider-turn-on-eldoc-mode)
+                             (paredit-mode +1)))
 
 ;; hide the *nrepl-connection* and *nrepl-server* buffers from
 ;; appearing in switch-to-buffer (C-x b)
-(setq nrepl-hide-special-buffers t)
+(setq cider-hide-special-buffers t)
 
 ;; enable paredit in the nrepl buffer
 (add-hook 'nrepl-connected-hook 'paredit-mode)
+
+;; specify the print length to be 100 to stop infinite sequences killing things.
+(defun live-nrepl-set-print-length ()
+  (nrepl-send-string-sync "(set! *print-length* 100)" "clojure.core"))
+
+(add-hook 'nrepl-connected-hook 'live-nrepl-set-print-length)
+
+;; this overrides cider-repl-set-ns in order to add
+;; nrepl-repl-requires-sexp. There's probably a better way to
+;; accomplish this.
+(defun custom-cider-repl-set-ns (ns)
+    "Switch the namespace of the REPL buffer to NS."
+    (interactive (list (cider-current-ns)))
+    (if ns
+        (with-current-buffer (cider-current-repl-buffer)
+          (cider-eval (format "(in-ns '%s)" ns)
+                             (cider-repl-handler (current-buffer)))
+          (cider-eval-sync nrepl-repl-requires-sexp))
+      (error "Sorry, I don't know what the current namespace is.")))
+
+(add-hook 'nrepl-connected-hook 'rebind-cider-repl-set-ns)
+
+(defun rebind-cider-repl-set-ns ()
+  (interactive)
+  (message "Rebinding C-c M-n to load defaults...")
+  (define-key cider-mode-map (kbd "C-c M-n") 'custom-cider-repl-set-ns))
 
 ;; tabs are two spaces
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 
-;; override function from nrepl.el to require doc, javadoc, et al. in
-;; repl-requires
-(eval-after-load "nrepl"
-  '(defun nrepl-set-ns (ns)
-    "Switch the namespace of the REPL buffer to NS."
-    (interactive (list (nrepl-current-ns)))
-    (if ns
-        (with-current-buffer (nrepl-current-repl-buffer)
-          (nrepl-send-string (format "(in-ns '%s)" ns)
-                             (nrepl-handler (current-buffer)))
-          (nrepl-send-string "(apply require clojure.main/repl-requires)"
-                             (nrepl-handler (current-buffer))))
-      (message "Sorry, I don't know what the current namespace is."))))
-
-
-(defun collections ()
+;; rename file and buffer
+(defun rename-file-and-buffer ()
+  "Rename the current buffer and file it is visiting."
   (interactive)
-  (with-current-buffer (nrepl-current-repl-buffer)
-    (nrepl-send-string "(import '(java.util
-      List Map Set ArrayList Arrays Collections
-      HashMap HashSet HashMap TreeMap TreeSet))"
-                       (nrepl-handler (current-buffer)))))
+  (let ((filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (message "Buffer is not visiting a file!")
+      (let ((new-name (read-file-name "New name: " filename)))
+        (cond
+         ((vc-backend filename) (vc-rename-file filename new-name))
+         (t
+          (rename-file filename new-name t)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)))))))
+
+
