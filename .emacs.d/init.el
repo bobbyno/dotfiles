@@ -5,10 +5,14 @@
 
 (defvar my-packages '(starter-kit
                       starter-kit-lisp
+                      starter-kit-ruby
+                      starter-kit-js
                       starter-kit-bindings
                       starter-kit-eshell
                       exec-path-from-shell
                       zenburn-theme
+                      markdown-mode
+                      yaml-mode
                       clojure-mode
                       clojure-test-mode
                       nrepl
@@ -125,6 +129,10 @@
 ;; enable paredit in the nrepl buffer
 (add-hook 'nrepl-connected-hook 'paredit-mode)
 
+;; tabs are two spaces
+(setq-default tab-width 2)
+(setq-default indent-tabs-mode nil)
+
 ;; override function from nrepl.el to require doc, javadoc, et al. in
 ;; repl-requires
 (eval-after-load "nrepl"
@@ -140,4 +148,10 @@
       (message "Sorry, I don't know what the current namespace is."))))
 
 
-
+(defun collections ()
+  (interactive)
+  (with-current-buffer (nrepl-current-repl-buffer)
+    (nrepl-send-string "(import '(java.util
+      List Map Set ArrayList Arrays Collections
+      HashMap HashSet HashMap TreeMap TreeSet))"
+                       (nrepl-handler (current-buffer)))))

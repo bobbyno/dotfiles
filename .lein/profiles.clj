@@ -3,4 +3,5 @@
         [lein-difftest "2.0.0"]
         [lein-pprint "1.1.1"]
         [lein-midje "3.1.2-bobbyno"]
+        [compojure/lein-template "0.3.0"]
 ]}}

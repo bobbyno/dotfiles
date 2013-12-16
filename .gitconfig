@@ -32,3 +32,7 @@
   	merge = refs/heads/master
 [heroku]
 	account = bobby
+[push]
+	default = simple
+[remote "origin"]
+	push = HEAD
