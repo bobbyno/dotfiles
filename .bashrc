@@ -18,8 +18,8 @@ alias ec="emacsclient -n"
 alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs &"
 alias mongostart="mongod run --config /usr/local/etc/mongod.conf"
 
-PS1="[\t][\u:\w]\$ "
+. ~/.outpace_profile
 
-. ~/.bash_private
+PS1="[\t][\u:\w]\$ "
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
