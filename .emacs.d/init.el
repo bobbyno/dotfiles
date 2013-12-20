@@ -34,10 +34,13 @@
 
 (set-face-attribute 'default nil
                     :family "DejaVu Sans Mono"
-                    :height 170)
+                    :height 165)
 
 ;; turn off annoying follow symlink prompt
 (setq vc-follow-symlinks t)
+
+;; show line numbers
+;; (global-linum-mode t)
 
 ;; ispell
 (setq-default ispell-program-name "aspell")
