@@ -20,6 +20,10 @@ alias mongostart="mongod run --config /usr/local/etc/mongod.conf"
 
 . ~/.outpace_profile
 
-PS1="[\t][\u:\w]\$ "
+if [ -n "$INSIDE_EMACS" ]; then
+  PS1="$ "
+else
+  PS1="[\t][\u:\w]\$ "
+fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

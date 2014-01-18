@@ -16,7 +16,9 @@
                       markdown-mode
                       yaml-mode
                       clojure-mode
+                      clojurescript-mode
                       clojure-test-mode
+                      coffee-mode
                       cider
                       ws-trim))
 
@@ -78,15 +80,120 @@
 
 ;; window configs
 
+(defun line-to-top-of-window ()
+  (interactive)
+  (recenter 0))
+
+(defun h-window () (window-at 1 1))
+(defvar h-buffer nil)
+
+(defun j-window () (window-at 150 1))
+(defvar j-buffer nil)
+
+(defun k-window () (window-at 1 50))
+(defvar k-buffer nil)
+
+(defun l-window () (window-at 150 50))
+(defvar l-buffer nil)
+
+(defun switch-to-foo-window (window)
+  (select-window (funcall window)))
+(defun switch-to-h-window () (interactive) (switch-to-foo-window 'h-window))
+(defun switch-to-j-window () (interactive) (switch-to-foo-window 'j-window))
+(defun switch-to-k-window () (interactive) (switch-to-foo-window 'k-window))
+(defun switch-to-l-window () (interactive) (switch-to-foo-window 'l-window))
+
+(defun put-buffer-in-foo-window (window memory)
+  (switch-to-foo-window window)
+  (ido-switch-buffer)
+  (remember-buffer memory))
+(defun put-buffer-in-h-window () (interactive) (put-buffer-in-foo-window 'h-window 'h-buffer))
+(defun put-buffer-in-j-window () (interactive) (put-buffer-in-foo-window 'j-window 'j-buffer))
+(defun put-buffer-in-k-window () (interactive) (put-buffer-in-foo-window 'k-window 'k-buffer))
+(defun put-buffer-in-l-window () (interactive) (put-buffer-in-foo-window 'l-window 'l-buffer))
+
+(defun find-file-in-foo-window (window memory)
+  (switch-to-foo-window window)
+  (ido-find-file)
+  (remember-buffer memory))
+(defun find-file-in-h-window () (interactive) (find-file-in-foo-window 'h-window 'h-buffer))
+(defun find-file-in-j-window () (interactive) (find-file-in-foo-window 'j-window 'j-buffer))
+(defun find-file-in-k-window () (interactive) (find-file-in-foo-window 'k-window 'k-buffer))
+(defun find-file-in-l-window () (interactive) (find-file-in-foo-window 'l-window 'l-buffer))
+
+(defun put-recent-file-in-foo-window (window memory)
+  (switch-to-foo-window window)
+  (recentf-open-files)
+  (remember-buffer))
+(defun put-recent-file-in-h-window () (interactive) (put-recent-file-in-foo-window 'h-window 'h-buffer))
+(defun put-recent-file-in-j-window () (interactive) (put-recent-file-in-foo-window 'j-window 'j-buffer))
+(defun put-recent-file-in-k-window () (interactive) (put-recent-file-in-foo-window 'k-window 'k-buffer))
+(defun put-recent-file-in-l-window () (interactive) (put-recent-file-in-foo-window 'l-window 'l-buffer))
+
+
+(defun remember-buffer (memory)
+  (set memory (buffer-name (window-buffer))))
+
+(defun reopen-buffer (buffer window)
+  (cond ((eq buffer nil))
+        ((get-buffer buffer)
+         (switch-to-foo-window window)
+         (set-window-buffer nil (get-buffer buffer)))
+        ((assoc buffer ido-virtual-buffers)
+         (switch-to-foo-window window)
+         (find-file (cdr (assoc buffer ido-virtual-buffers))))))
+
+(defun four-windows ()
+  (interactive)
+  (delete-other-windows)
+  (split-window-vertically)
+  (split-window-horizontally)
+  (switch-to-l-window)
+  (split-window-horizontally)
+  (map 'list #'reopen-buffer
+       (list h-buffer j-buffer k-buffer l-buffer)
+       (list 'h-window 'j-window 'k-window 'l-window)))
+
+(defun do-command-from-here (shell-buffer cmd)
+  (interactive)
+  (save-some-buffers t)
+  (switch-to-buffer-other-window shell-buffer)
+  (goto-char (point-max))
+  (insert cmd)
+  (comint-send-input))
+
+
 ;; Open one window for source, one for test, and a slightly smaller one for a repl
 (defun clojure ()
   (interactive)
-  (split-window-vertically)
-  (split-window-horizontally)
+  (four-windows)
   (cider-jack-in)
-  (enlarge-window 5))
+  (ansi-term "/bin/bash")
+  (shrink-window 10))
 
 (global-set-key (kbd "<f9>") 'clojure)
+
+
+;; window-related global key bindings
+
+(windmove-default-keybindings 'control)
+
+(global-set-key (kbd "C-c b") 'ido-switch-buffer-other-window)
+
+(global-set-key (kbd "s-h") 'switch-to-h-window)
+(global-set-key (kbd "s-j") 'switch-to-j-window)
+(global-set-key (kbd "s-k") 'switch-to-k-window)
+(global-set-key (kbd "s-l") 'switch-to-l-window)
+
+(global-set-key (kbd "H-h") 'put-buffer-in-h-window)
+(global-set-key (kbd "H-j") 'put-buffer-in-j-window)
+(global-set-key (kbd "H-k") 'put-buffer-in-k-window)
+(global-set-key (kbd "H-l") 'put-buffer-in-l-window)
+
+(global-set-key (kbd "C-x H-h") 'find-file-in-h-window)
+(global-set-key (kbd "C-x H-j") 'find-file-in-j-window)
+(global-set-key (kbd "C-x H-k") 'find-file-in-k-window)
+(global-set-key (kbd "C-x H-l") 'find-file-in-l-window)
 
 ;; customize indentation for midje facts
 (require 'clojure-mode)
@@ -173,3 +280,16 @@
           (set-buffer-modified-p nil)))))))
 
 
+(put 'upcase-region 'disabled nil)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((encoding . utf-8) (whitespace-line-column . 80) (lexical-binding . t)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
