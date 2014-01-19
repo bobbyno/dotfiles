@@ -168,7 +168,7 @@
   (interactive)
   (four-windows)
   (cider-jack-in)
-  (ansi-term "/bin/bash")
+  (shell)
   (shrink-window 10))
 
 (global-set-key (kbd "<f9>") 'clojure)

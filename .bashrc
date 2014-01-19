@@ -1,3 +1,4 @@
+export SHELL=/usr/local/bin/bash
 export EDITOR='emacsclient'
 export LESS="-Nmsx4erX"
 export PATH=$HOME/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/local/heroku/bin:$PATH
@@ -18,10 +19,12 @@ alias ec="emacsclient -n"
 alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs &"
 alias mongostart="mongod run --config /usr/local/etc/mongod.conf"
 
+PROMPT_DIRTRIM=2
+
 . ~/.outpace_profile
 
 if [ -n "$INSIDE_EMACS" ]; then
-  PS1="$ "
+  PS1="[\w]\$ "
 else
   PS1="[\t][\u:\w]\$ "
 fi
