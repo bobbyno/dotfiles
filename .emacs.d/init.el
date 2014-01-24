@@ -15,6 +15,7 @@
                       zenburn-theme
                       markdown-mode
                       yaml-mode
+                      rainbow-delimiters
                       clojure-mode
                       clojurescript-mode
                       clojure-test-mode
@@ -37,6 +38,15 @@
 (set-face-attribute 'default nil
                     :family "DejaVu Sans Mono"
                     :height 165)
+
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+;; disable bold fonts
+(mapc
+ (lambda (face)
+   (set-face-attribute face nil :weight 'normal :underline nil))
+ (face-list))
 
 ;; turn off annoying follow symlink prompt
 (setq vc-follow-symlinks t)
@@ -162,8 +172,7 @@
   (insert cmd)
   (comint-send-input))
 
-
-;; Open one window for source, one for test, and a slightly smaller one for a repl
+;; Clojure IDE setup
 (defun clojure ()
   (interactive)
   (four-windows)
@@ -173,10 +182,12 @@
 
 (global-set-key (kbd "<f9>") 'clojure)
 
-
 ;; window-related global key bindings
 
 (windmove-default-keybindings 'control)
+
+;; set the mac fn key to the hyper key
+(setq ns-function-modifier 'hyper)
 
 (global-set-key (kbd "C-c b") 'ido-switch-buffer-other-window)
 
@@ -218,8 +229,11 @@
                                                  (match-end 1) (make-char 'greek-iso8859-7 107))
                                  nil))))))
 
+;; add line numbers for c
+(add-hook 'clojure-mode-hook (lambda () (linum-mode)))
+
 ;; nrepl config
-;; enable eldoc in clojure buffers
+;; enable eldoc in cider
 
 (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
 (add-hook 'cider-mode-hook (lambda ()
@@ -278,18 +292,3 @@
           (rename-buffer new-name)
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil)))))))
-
-
-(put 'upcase-region 'disabled nil)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((encoding . utf-8) (whitespace-line-column . 80) (lexical-binding . t)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
