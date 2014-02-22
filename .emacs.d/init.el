@@ -3,6 +3,7 @@
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
+
 (package-initialize)
 
 (defvar my-packages '(starter-kit
@@ -35,6 +36,9 @@
 ;; theme and font aesthetics
 (load-theme 'zenburn t)
 
+;; set the mac fn key to the hyper key
+(setq ns-function-modifier 'hyper)
+
 (set-face-attribute 'default nil
                     :family "DejaVu Sans Mono"
                     :height 165)
@@ -42,17 +46,28 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-;; disable bold fonts
-(mapc
- (lambda (face)
-   (set-face-attribute face nil :weight 'normal :underline nil))
- (face-list))
+(defun disable-bold-fonts ()
+  (interactive)
+  (mapc
+   (lambda (face)
+     (set-face-attribute face nil :weight 'normal :underline nil))
+   (face-list)))
+
+;; calling this when init.el loads handles most cases,
+;; but some modes re-enable bold fonts.
+(disable-bold-fonts)
+
+;; for those cases, use this keyboard shortcut:
+(global-set-key (kbd "H-b") 'disable-bold-fonts)
+
+;; indent regions
+(global-set-key (kbd "H-i") 'indent-region)
 
 ;; turn off annoying follow symlink prompt
 (setq vc-follow-symlinks t)
 
-;; show line numbers
-;; (global-linum-mode t)
+;; toggle line numbers
+(global-set-key (kbd "C-c l") 'linum-mode)
 
 ;; ispell
 (setq-default ispell-program-name "aspell")
@@ -85,8 +100,10 @@
 (global-set-key (kbd "C-x <down>") 'shrink-window)
 
 ;; find file in project
+(require 'find-file-in-project)
 (global-set-key (kbd "C-x f") 'find-file-in-project)
 (setq-default ffip-project-file '(".git" "project.clj" "pom.xml") )
+(add-to-list 'ffip-patterns "*\.cljs")
 
 ;; window configs
 
@@ -140,7 +157,6 @@
 (defun put-recent-file-in-k-window () (interactive) (put-recent-file-in-foo-window 'k-window 'k-buffer))
 (defun put-recent-file-in-l-window () (interactive) (put-recent-file-in-foo-window 'l-window 'l-buffer))
 
-
 (defun remember-buffer (memory)
   (set memory (buffer-name (window-buffer))))
 
@@ -176,8 +192,8 @@
 (defun clojure ()
   (interactive)
   (four-windows)
-  (cider-jack-in)
   (shell)
+  (cider-jack-in)
   (shrink-window 10))
 
 (global-set-key (kbd "<f9>") 'clojure)
@@ -185,9 +201,6 @@
 ;; window-related global key bindings
 
 (windmove-default-keybindings 'control)
-
-;; set the mac fn key to the hyper key
-(setq ns-function-modifier 'hyper)
 
 (global-set-key (kbd "C-c b") 'ido-switch-buffer-other-window)
 
