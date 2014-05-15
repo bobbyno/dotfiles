@@ -12,4 +12,10 @@
  (lambda ()
    (define-key elpy-mode-map (kbd "C-c C-v") 'python-flake8)))
 
+;; pretty lambda's
+(require 'lambda-mode)
+(add-hook 'python-mode-hook #'lambda-mode 1)
+(add-hook 'inferior-python-mode-hook #'lambda-mode 1)
+(setq lambda-symbol (string (make-char 'greek-iso8859-7 107)))
+
 (provide 'python-settings)
