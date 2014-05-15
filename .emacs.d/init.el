@@ -3,6 +3,8 @@
 (require 'general-settings)
 (require 'window-settings)
 (require 'clojure-settings)
+(require 'python-settings)
+(require 'python-flake8)
 
 ;; dirtree
 (add-to-list 'load-path "~/.emacs.d/dirtree")
