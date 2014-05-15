@@ -1,7 +1,7 @@
 export SHELL=/usr/local/bin/bash
 export EDITOR='emacsclient'
 export LESS="-Nmsx4erX"
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/heroku/bin:/usr/local/share/python:$PATH
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/heroku/bin:$PATH
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export JAVA_HOME=`/usr/libexec/java_home`
@@ -23,6 +23,7 @@ alias mongostart="mongod run --config /usr/local/etc/mongod.conf"
 alias dev="cd ~/dev"
 alias practice="cd ~/dev/practice/clojure"
 alias es="elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
+alias pi="pip install -r requirements.txt"
 
 PROMPT_DIRTRIM=2
 
@@ -33,5 +34,8 @@ if [ -n "$INSIDE_EMACS" ]; then
 else
   PS1="[\t][\u:\w]\$ "
 fi
+
+# autocomplete for AWS CLI
+complete -C aws_completer aws
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
