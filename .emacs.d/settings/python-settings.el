@@ -8,4 +8,8 @@
 (autoload 'python-pylint "python-pylint")
 (autoload 'pylint "python-pylint")
 
+(add-hook 'elpy-mode-hook
+ (lambda ()
+   (define-key elpy-mode-map (kbd "C-c C-v") 'python-flake8)))
+
 (provide 'python-settings)
