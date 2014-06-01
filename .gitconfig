@@ -1,38 +1,41 @@
 [user]
-	name = Bobby Norton
-	email = bobby@testedminds.com
+  name = Bobby Norton
+  email = bobby@testedminds.com
 [alias]
-	st = status
-	br = branch
-	ci = commit
-	co = checkout
-	logp = log -p
-	lol = log --graph --decorate --pretty=oneline --abbrev-commit
-	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	ls = ls-files
+  st = status
+  br = branch
+  ci = commit
+  co = checkout
+  logp = log -p
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  ls = ls-files
 [color]
-	ui = auto
+  ui = auto
 [color "branch"]
-	current = yellow reverse
-	local = green
-	remote = red
+  current = yellow reverse
+  local = green
+  remote = red
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
 [color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+  added = yellow
+  changed = green
+  untracked = cyan
 [core]
         excludesfile = "~/.gitignore_global"
 [branch "master"]
-  	remote = origin
-  	merge = refs/heads/master
+    remote = origin
+    merge = refs/heads/master
 [heroku]
-	account = bobby
+  account = bobby
 [push]
-	default = simple
+  default = simple
 [remote "origin"]
-	push = HEAD
+  push = HEAD
+[git-pair]
+  authors = zee <zee@zeespencer.com>
+  authors = Bobby Norton <bobby@testedminds.com>
