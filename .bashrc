@@ -22,6 +22,7 @@ alias dev="cd ~/dev"
 alias practice="cd ~/dev/practice/clojure"
 alias es="elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
 alias pi="pip install -r requirements.txt"
+alias emacs="emacs &"
 
 PROMPT_DIRTRIM=2
 

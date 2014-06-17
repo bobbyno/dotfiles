@@ -83,4 +83,12 @@
   (insert cmd)
   (comint-send-input))
 
+(defun create-scratch-buffer ()
+   "Create/retrieve a scratch buffer in text mode and switch to it."
+   (interactive)
+   (switch-to-buffer (get-buffer-create "*scratch*"))
+   (text-mode))
+
+(global-set-key (kbd "H-s") 'create-scratch-buffer)
+
 (provide 'window-settings)

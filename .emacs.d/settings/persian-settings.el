@@ -7,4 +7,6 @@
     (setq buffer-face-mode-face '(:family "Monospace" :height 300))
     (buffer-face-mode)))
 
+(global-set-key (kbd "H-p") 'persian)
+
 (provide 'persian-settings)

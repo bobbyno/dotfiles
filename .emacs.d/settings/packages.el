@@ -26,7 +26,9 @@
                       cider
                       ws-trim
                       elpy
-                      autopair))
+                      autopair
+                      robe
+                      enh-ruby-mode))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
