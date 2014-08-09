@@ -10,7 +10,6 @@
 
 (defvar my-packages '(starter-kit
                       starter-kit-lisp
-                      starter-kit-ruby
                       starter-kit-js
                       starter-kit-bindings
                       starter-kit-eshell
@@ -21,7 +20,6 @@
                       rainbow-delimiters
                       clojure-mode
                       clojurescript-mode
-                      clojure-test-mode
                       coffee-mode
                       cider
                       ws-trim

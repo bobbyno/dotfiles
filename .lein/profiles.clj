@@ -1,5 +1,6 @@
 {:user {
         :plugins [
+                  [cider/cider-nrepl "0.8.0-SNAPSHOT"]
                   [lein-describe "0.3.0-SNAPSHOT"]
                   [lein-difftest "2.0.0"]
                   [lein-pprint "1.1.1"]

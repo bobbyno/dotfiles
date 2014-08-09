@@ -76,13 +76,18 @@
 
 ;; specify the print length to be 100 to stop infinite sequences killing things.
 (defun live-nrepl-set-print-length ()
-  (nrepl-send-string-sync "(set! *print-length* 100)" "clojure.core"))
+  (nrepl-sync-request:eval "(set! *print-length* 100)" "clojure.core"))
 
 (add-hook 'nrepl-connected-hook 'live-nrepl-set-print-length)
 
 ;; this overrides cider-repl-set-ns in order to add
 ;; nrepl-repl-requires-sexp. There's probably a better way to
 ;; accomplish this.
+(defvar nrepl-repl-requires-sexp "(clojure.core/apply clojure.core/require
+     '[[clojure.repl :refer (  source apropos dir pst doc find-doc)]
+       [clojure.pprint :refer :all] [clojure.java.javadoc :refer (javadoc)]])"
+     "Things to require in the tooling session and the REPL buffer.")
+
 (defun custom-cider-repl-set-ns (ns)
     "Switch the namespace of the REPL buffer to NS."
     (interactive (list (cider-current-ns)))

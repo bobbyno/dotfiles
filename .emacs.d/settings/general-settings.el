@@ -1,3 +1,6 @@
+(setq inhibit-startup-screen t)
+(setq inhibit-startup-message t)
+
 ;; allow access from emacsclient
 (require 'server)
 (unless (server-running-p)
@@ -88,5 +91,28 @@
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil)))))))
 (put 'upcase-region 'disabled nil)
+
+;; make scripts executable after saving
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+;; remove annoying keyboard shortcuts
+;;; show buffer list
+(global-unset-key (kbd "C-x C-b"))
+
+;; date utilities
+(defun call-date (offset)
+  (insert (shell-command-to-string (concat "echo -n $(date -v " offset "d +\"%A, %B %e %Y\")"))))
+
+(defun today ()
+  (interactive)
+  (call-date "+0"))
+
+(defun tomorrow ()
+  (interactive)
+  (call-date "+1"))
+
+(defun yesterday ()
+  (interactive)
+  (call-date "-1"))
 
 (provide 'general-settings)
