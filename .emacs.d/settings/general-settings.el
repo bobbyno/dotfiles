@@ -19,12 +19,7 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-(defun disable-bold-fonts ()
-  (interactive)
-  (mapc
-   (lambda (face)
-     (set-face-attribute face nil :weight 'normal :underline nil))
-   (face-list)))
+(require 'no-bold-fonts)
 
 ;; calling this when init.el loads handles most cases,
 ;; but some modes re-enable bold fonts.

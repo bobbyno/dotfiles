@@ -56,12 +56,15 @@
 ;; classic lambda for fn
 (remove-hook 'clojure-mode-hook 'esk-pretty-fn)
 
-(eval-after-load 'clojure-mode
-    '(font-lock-add-keywords
-      'clojure-mode `(("(\\(fn\\>\\)"
+(defun pretty-lambdas (mode)
+  (font-lock-add-keywords
+      mode `(("(\\(fn\\>\\)"
                        (0 (progn (compose-region (match-beginning 1)
-                                                 (match-end 1) (make-char 'greek-iso8859-7 107))
-                                 nil))))))
+                                                 (match-end 1)
+                                                 (make-char 'greek-iso8859-7 107))
+                                 'decompose-region))))))
+
+(eval-after-load 'clojure-mode (lambda () (pretty-lambdas 'clojure-mode)))
 
 ;; add line numbers
 (add-hook 'clojure-mode-hook (lambda () (linum-mode)))
@@ -72,9 +75,11 @@
                              (paredit-mode +1)
                              (autopair-mode 0)))
 
+(require 'no-bold-fonts)
 (add-hook 'cider-repl-mode-hook
           (lambda ()
             (cider-turn-on-eldoc-mode)
+            (disable-bold-fonts)
             (paredit-mode 1)
             (autopair-mode 0)
             (rainbow-delimiters-mode 1)
