@@ -7,6 +7,7 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 export JAVA_HOME=`/usr/libexec/java_home`
 export JDK_HOME=`/usr/libexec/java_home`
 export RBENV_ROOT=/usr/local/var/rbenv
+export DOCKER_HOST=tcp://localhost:2375
 
 alias ls="ls -G"
 alias ll="ls -alG"

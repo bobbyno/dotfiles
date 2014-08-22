@@ -46,6 +46,13 @@
   (error-let 'defun)
   (provided 0))
 
+;; hide the *nrepl-connection* and *nrepl-server* buffers from
+;; appearing in switch-to-buffer (C-x b)
+(setq nrepl-hide-special-buffers t)
+
+;; show nrepl port in cider-repl buffer name
+(setq nrepl-buffer-name-show-port t)
+
 ;; classic lambda for fn
 (remove-hook 'clojure-mode-hook 'esk-pretty-fn)
 
@@ -56,37 +63,31 @@
                                                  (match-end 1) (make-char 'greek-iso8859-7 107))
                                  nil))))))
 
-;; add line numbers for c
+;; add line numbers
 (add-hook 'clojure-mode-hook (lambda () (linum-mode)))
 
-;; nrepl config
-;; enable eldoc in cider
-
-(add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
+;; (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
 (add-hook 'cider-mode-hook (lambda ()
                              (cider-turn-on-eldoc-mode)
-                             (paredit-mode +1)))
+                             (paredit-mode +1)
+                             (autopair-mode 0)))
 
-;; hide the *nrepl-connection* and *nrepl-server* buffers from
-;; appearing in switch-to-buffer (C-x b)
-(setq cider-hide-special-buffers t)
+(add-hook 'cider-repl-mode-hook
+          (lambda ()
+            (cider-turn-on-eldoc-mode)
+            (paredit-mode 1)
+            (autopair-mode 0)
+            (rainbow-delimiters-mode 1)
+            ;; specify the print length to be 100 to stop infinite sequences killing things.
+            (nrepl-sync-request:eval "(set! *print-length* 100)" "clojure.core")))
 
-;; enable paredit in the nrepl buffer
-(add-hook 'nrepl-connected-hook 'paredit-mode)
-
-;; specify the print length to be 100 to stop infinite sequences killing things.
-(defun live-nrepl-set-print-length ()
-  (nrepl-sync-request:eval "(set! *print-length* 100)" "clojure.core"))
-
-(add-hook 'nrepl-connected-hook 'live-nrepl-set-print-length)
-
-;; this overrides cider-repl-set-ns in order to add
-;; nrepl-repl-requires-sexp. There's probably a better way to
-;; accomplish this.
-(defvar nrepl-repl-requires-sexp "(clojure.core/apply clojure.core/require
-     '[[clojure.repl :refer (  source apropos dir pst doc find-doc)]
-       [clojure.pprint :refer :all] [clojure.java.javadoc :refer (javadoc)]])"
-     "Things to require in the tooling session and the REPL buffer.")
+(defun require-repl-friends ()
+    (interactive)
+    (nrepl-sync-request:eval
+      "(clojure.core/apply clojure.core/require
+     '[[clojure.repl :refer :all]
+       [clojure.pprint :refer :all]
+       [clojure.java.javadoc :refer (javadoc)]])"))
 
 (defun custom-cider-repl-set-ns (ns)
     "Switch the namespace of the REPL buffer to NS."
@@ -95,15 +96,16 @@
         (with-current-buffer (cider-current-repl-buffer)
           (cider-eval (format "(in-ns '%s)" ns)
                              (cider-repl-handler (current-buffer)))
-          (cider-eval-sync nrepl-repl-requires-sexp))
+          (require-repl-friends))
       (error "Sorry, I don't know what the current namespace is.")))
 
-(add-hook 'nrepl-connected-hook 'rebind-cider-repl-set-ns)
-
-(defun rebind-cider-repl-set-ns ()
-  (interactive)
-  (message "Rebinding C-c M-n to load defaults...")
-  (define-key cider-mode-map (kbd "C-c M-n") 'custom-cider-repl-set-ns))
+(add-hook 'nrepl-connected-hook
+          (lambda ()
+            (dolist (ns '("user" "clojure.core"))
+              (nrepl-sync-request:eval (format "(in-ns '%s)" ns))
+              (require-repl-friends))
+            ;; Also require repl friends when changing namespaces.
+            (define-key cider-mode-map (kbd "C-c M-n") 'custom-cider-repl-set-ns)))
 
 ;; eval in repl
 (defun cider-eval-expression-at-point-in-repl ()
@@ -118,5 +120,23 @@
     (cider-repl-return)))
 
 (global-set-key (kbd "H-e") 'cider-eval-expression-at-point-in-repl)
+
+;; clj-scratch buffer
+(defun buffer-exists? (name)
+  (= 1 (length
+        (delq nil
+              (mapcar
+               (lambda (buf) (string-match name (buffer-name buf)))
+               (buffer-list))))))
+
+(defun clj-scratch ()
+  "Create/retrieve a Clojure scratch buffer and switch to it.."
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*clj-scratch*"))
+  (clojure-mode)
+  (if (not (buffer-exists? "*cider-repl"))
+      (cider-jack-in)))
+
+(global-set-key (kbd "H-c") 'clj-scratch)
 
 (provide 'clojure-settings)
