@@ -7,7 +7,7 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 export JAVA_HOME=`/usr/libexec/java_home`
 export JDK_HOME=`/usr/libexec/java_home`
 export RBENV_ROOT=/usr/local/var/rbenv
-export DOCKER_HOST=tcp://localhost:2375
+export DOCKER_HOST=tcp://local-docker.outpace.com:2375
 
 alias ls="ls -G"
 alias ll="ls -alG"
@@ -24,6 +24,7 @@ alias practice="cd ~/dev/practice/clojure"
 alias es="elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
 alias pi="pip install -r requirements.txt"
 alias emacs="emacs &"
+alias vgs="vagrant global-status"
 
 PROMPT_DIRTRIM=2
 
@@ -35,7 +36,9 @@ else
   PS1="[\t][\u:\w]\$ "
 fi
 
-# autocomplete for AWS CLI
+# autocomplete
 complete -C aws_completer aws
+. /usr/local/etc/bash_completion.d/git-completion.bash
+. ~/complete_make_targets.sh
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
