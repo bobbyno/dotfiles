@@ -26,15 +26,15 @@
   changed = green
   untracked = cyan
 [core]
-        excludesfile = "~/.gitignore_global"
+  excludesfile = "~/.gitignore_global"
 [branch "master"]
-    remote = origin
-    merge = refs/heads/master
+  remote = origin
+  merge = refs/heads/master
 [push]
   default = simple
 [remote "origin"]
   push = HEAD
 [git-pair]
-  authors = zee <zee@zeespencer.com>
+  authors = Zee <zee@zeespencer.com>
   authors = Bobby Norton <bobby@testedminds.com>
-	authors = Vincent Storme <me@vincentstorme.com>
+  authors = Vincent Storme <me@vincentstorme.com>
