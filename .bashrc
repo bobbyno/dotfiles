@@ -42,3 +42,7 @@ complete -C aws_completer aws
 . ~/complete_make_targets.sh
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
+source "$HOME/.outpace/bashrc"

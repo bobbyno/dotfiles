@@ -69,7 +69,8 @@
 ;; add line numbers
 (add-hook 'clojure-mode-hook (lambda () (linum-mode)))
 
-;; (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
+(add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
+
 (add-hook 'cider-mode-hook (lambda ()
                              (cider-turn-on-eldoc-mode)
                              (paredit-mode +1)
@@ -82,9 +83,7 @@
             (disable-bold-fonts)
             (paredit-mode 1)
             (autopair-mode 0)
-            (rainbow-delimiters-mode 1)
-            ;; specify the print length to be 100 to stop infinite sequences killing things.
-            (nrepl-sync-request:eval "(set! *print-length* 100)" "clojure.core")))
+            (rainbow-delimiters-mode 1)))
 
 (defun require-repl-friends ()
     (interactive)
