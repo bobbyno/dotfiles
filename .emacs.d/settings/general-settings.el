@@ -52,9 +52,13 @@
 ;; No scratch message
 (setq initial-scratch-message nil)
 
-;; turn off auto fill
-(auto-fill-mode -1)
+;; turn off auto fill in every way imaginable
+(setq auto-fill-mode -1)
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
+;; call set-fill-column in a buffer interactively
+;; when you actually need it.
+(setq-default fill-column 99999)
+(setq fill-column 99999)
 
 ;; find file in project
 (require 'find-file-in-project)
@@ -112,10 +116,10 @@
 
 ;; Disable mouse wheel
 
-(mouse-wheel-mode -1)
+;(mouse-wheel-mode -1)
 
-(global-set-key [wheel-up] 'ignore)
-(global-set-key [wheel-down] 'ignore)
+;(global-set-key [wheel-up] 'ignore)
+;(global-set-key [wheel-down] 'ignore)
 (global-set-key [wheel-left] 'ignore)
 (global-set-key [wheel-right] 'ignore)
 (global-set-key [double-wheel-up] 'ignore)

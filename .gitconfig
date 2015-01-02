@@ -10,6 +10,7 @@
   lol = log --graph --decorate --pretty=oneline --abbrev-commit
   lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
   ls = ls-files
+  pr = pull --rebase
 [color]
   ui = auto
 [color "branch"]
@@ -37,5 +38,5 @@
 [git-pair]
   authors = zee <zee@zeespencer.com>
   authors = Bobby Norton <bobby@testedminds.com>
-	authors = Vincent Storme <me@vincentstorme.com>
-	authors = Alex Rodioukov <alex.rodioukov@outpace.com>
+  authors = Vincent Storme <me@vincentstorme.com>
+  authors = Alex Rodioukov <alex.rodioukov@outpace.com>

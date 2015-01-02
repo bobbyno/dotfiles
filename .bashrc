@@ -25,6 +25,7 @@ alias es="elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsear
 alias pi="pip install -r requirements.txt"
 alias emacs="emacs &"
 alias vgs="vagrant global-status"
+alias utc="date -u"
 
 PROMPT_DIRTRIM=2
 

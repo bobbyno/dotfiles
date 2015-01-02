@@ -118,7 +118,7 @@
     ;; Strip excess whitespace
     (while (string-match "\\`\s+\\|\n+\\'" form)
       (setq form (replace-match "" t t form)))
-    (set-buffer (cider-find-or-create-repl-buffer))
+    (set-buffer (cider-current-repl-buffer))
     (goto-char (point-max))
     (insert form)
     (cider-repl-return)))
