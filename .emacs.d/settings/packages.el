@@ -12,10 +12,7 @@
 
 (package-initialize)
 
-(defvar my-packages '(starter-kit
-                      starter-kit-lisp
-                      starter-kit-bindings
-                      exec-path-from-shell
+(defvar my-packages '(exec-path-from-shell
                       zenburn-theme
                       markdown-mode
                       yaml-mode

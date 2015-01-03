@@ -1,6 +1,6 @@
 {:user {
         :plugins [
-                  [cider/cider-nrepl "0.8.1"]
+                  [cider/cider-nrepl "0.8.2"]
                   [lein-droid "0.2.4-SNAPSHOT"]]
         :repl-options
         {:init
