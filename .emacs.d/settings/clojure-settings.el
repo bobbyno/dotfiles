@@ -53,9 +53,6 @@
 ;; show nrepl port in cider-repl buffer name
 (setq nrepl-buffer-name-show-port t)
 
-;; classic lambda for fn
-(remove-hook 'clojure-mode-hook 'esk-pretty-fn)
-
 (defun pretty-lambdas (mode)
   (font-lock-add-keywords
       mode `(("(\\(fn\\>\\)"
@@ -65,9 +62,10 @@
                                  'decompose-region))))))
 
 (eval-after-load 'clojure-mode (lambda () (pretty-lambdas 'clojure-mode)))
+(eval-after-load 'clojurescript-mode (lambda () (pretty-lambdas 'clojurescript-mode)))
 
 ;; add line numbers
-(add-hook 'clojure-mode-hook (lambda () (linum-mode)))
+(add-hook 'clojure-mode-hook 'linum-mode)
 
 (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
 
