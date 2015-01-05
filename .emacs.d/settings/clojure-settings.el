@@ -9,30 +9,6 @@
 
 (global-set-key (kbd "<f9>") 'clojure)
 
-;; window-related global key bindings
-
-(windmove-default-keybindings 'control)
-
-(global-set-key (kbd "C-c b") 'ido-switch-buffer-other-window)
-
-(global-set-key (kbd "s-h") 'switch-to-h-window)
-(global-set-key (kbd "s-j") 'switch-to-j-window)
-(global-set-key (kbd "s-k") 'switch-to-k-window)
-(global-set-key (kbd "s-l") 'switch-to-l-window)
-
-(global-set-key (kbd "H-h") 'put-buffer-in-h-window)
-(global-set-key (kbd "H-j") 'put-buffer-in-j-window)
-(global-set-key (kbd "H-k") 'put-buffer-in-k-window)
-(global-set-key (kbd "H-l") 'put-buffer-in-l-window)
-
-(global-set-key (kbd "C-x H-h") 'find-file-in-h-window)
-(global-set-key (kbd "C-x H-j") 'find-file-in-j-window)
-(global-set-key (kbd "C-x H-k") 'find-file-in-k-window)
-(global-set-key (kbd "C-x H-l") 'find-file-in-l-window)
-
-(global-set-key (kbd "C-x v") 'split-window-right)
-(global-set-key (kbd "C-x h") 'split-window-below)
-
 ;; customize indentation for midje facts
 (require 'clojure-mode)
 (define-clojure-indent
@@ -124,13 +100,6 @@
 (global-set-key (kbd "H-e") 'cider-eval-expression-at-point-in-repl)
 
 ;; clj-scratch buffer
-(defun buffer-exists? (name)
-  (= 1 (length
-        (delq nil
-              (mapcar
-               (lambda (buf) (string-match name (buffer-name buf)))
-               (buffer-list))))))
-
 (defun clj-scratch ()
   "Create/retrieve a Clojure scratch buffer and switch to it.."
   (interactive)
@@ -140,5 +109,95 @@
       (cider-jack-in)))
 
 (global-set-key (kbd "H-c") 'clj-scratch)
+
+;; starter-kit-lisp functions
+;; Copyright (c) 2008-2010 Phil Hagelberg and contributors
+;;; These belong in prog-mode-hook:
+;; We have a number of turn-on-* functions since it's advised that lambda
+;; functions not go in hooks. Repeatedly evaling an add-to-list with a
+;; hook value will repeatedly add it since there's no way to ensure
+;; that a byte-compiled lambda doesn't already exist in the list.
+
+(defun esk-local-column-number-mode ()
+  (make-local-variable 'column-number-mode)
+  (column-number-mode t))
+
+(defun esk-local-comment-auto-fill ()
+  (set (make-local-variable 'comment-auto-fill-only-comments) t)
+  (auto-fill-mode t))
+
+(defun esk-turn-on-hl-line-mode ()
+  (when (> (display-color-cells) 8)
+    (hl-line-mode t)))
+
+(defun esk-turn-on-save-place-mode ()
+  (require 'saveplace)
+  (setq save-place t))
+
+(defun esk-pretty-lambdas ()
+  (font-lock-add-keywords
+   nil `(("(?\\(lambda\\>\\)"
+          (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                    ,(make-char 'greek-iso8859-7 107))
+                    nil))))))
+
+(defun esk-add-watchwords ()
+  (font-lock-add-keywords
+   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|HACK\\|REFACTOR\\|NOCOMMIT\\)"
+          1 font-lock-warning-face t))))
+
+(add-hook 'prog-mode-hook 'esk-local-column-number-mode)
+(add-hook 'prog-mode-hook 'esk-local-comment-auto-fill)
+(add-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
+(add-hook 'prog-mode-hook 'esk-turn-on-save-place-mode)
+(add-hook 'prog-mode-hook 'esk-pretty-lambdas)
+(add-hook 'prog-mode-hook 'esk-add-watchwords)
+(add-hook 'prog-mode-hook 'idle-highlight-mode)
+
+(defun esk-prog-mode-hook ()
+  (run-hooks 'prog-mode-hook))
+
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'emacs-lisp-mode-hook 'esk-remove-elc-on-save)
+  (add-hook 'emacs-lisp-mode-hook 'esk-prog-mode-hook)
+  (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
+
+  (defun esk-remove-elc-on-save ()
+    "If you're saving an elisp file, likely the .elc is no longer valid."
+    (make-local-variable 'after-save-hook)
+    (add-hook 'after-save-hook
+              (lambda ()
+                (if (file-exists-p (concat buffer-file-name "c"))
+                    (delete-file (concat buffer-file-name "c"))))))
+
+  (define-key emacs-lisp-mode-map (kbd "C-c v") 'eval-buffer)
+
+;;; Enhance Lisp Modes
+
+  (define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
+  (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
+
+  ;; TODO: look into parenface package
+  (defface esk-paren-face
+    '((((class color) (background dark))
+       (:foreground "grey50"))
+      (((class color) (background light))
+       (:foreground "grey55")))
+    "Face used to dim parentheses."
+    :group 'starter-kit-faces)
+
+  (eval-after-load 'paredit
+    ;; need a binding that works in the terminal
+    '(progn
+       (define-key paredit-mode-map (kbd "M-)") 'paredit-forward-slurp-sexp)
+       (define-key paredit-mode-map (kbd "M-(") 'paredit-backward-slurp-sexp)))
+
+  (dolist (mode '(scheme emacs-lisp lisp clojure clojurescript))
+    (when (> (display-color-cells) 8)
+      (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
+                              '(("(\\|)" . 'esk-paren-face))))
+    (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
+              'paredit-mode))
+
 
 (provide 'clojure-settings)

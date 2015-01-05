@@ -1,6 +1,5 @@
 (add-to-list 'load-path "~/.emacs.d/settings")
 (require 'packages)
-(require 'starter-kit)
 (require 'general-settings)
 (require 'window-settings)
 (require 'clojure-settings)
@@ -9,4 +8,3 @@
 (require 'persian-settings)
 (require 'dirtree-settings)
 (require 'ruby-settings)
-

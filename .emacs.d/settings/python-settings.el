@@ -20,9 +20,7 @@
    (define-key elpy-mode-map (kbd "M-,") 'pop-tag-mark)))
 
 ;; pretty lambda's
-(require 'lambda-mode)
-(add-hook 'python-mode-hook #'lambda-mode 1)
-(add-hook 'inferior-python-mode-hook #'lambda-mode 1)
-(setq lambda-symbol (string (make-char 'greek-iso8859-7 107)))
+(add-hook 'python-mode-hook 'esk-pretty-lambdas)
+(add-hook 'inferior-python-mode-hook 'esk-pretty-lambdas)
 
 (provide 'python-settings)

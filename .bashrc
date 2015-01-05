@@ -7,7 +7,6 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 export JAVA_HOME=`/usr/libexec/java_home`
 export JDK_HOME=`/usr/libexec/java_home`
 export RBENV_ROOT=/usr/local/var/rbenv
-export DOCKER_HOST=tcp://local-docker.outpace.com:2375
 
 alias ls="ls -G"
 alias ll="ls -alG"
@@ -26,6 +25,7 @@ alias pi="pip install -r requirements.txt"
 alias emacs="emacs &"
 alias vgs="vagrant global-status"
 alias utc="date -u"
+alias gpr="git pull --rebase"
 
 PROMPT_DIRTRIM=2
 
@@ -44,6 +44,7 @@ complete -C aws_completer aws
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
-source "$HOME/.outpace/bashrc"
+if [ -e $HOME/.homesick/repos/homeshick/homeshick.sh ]; then
+  source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+  source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
+fi

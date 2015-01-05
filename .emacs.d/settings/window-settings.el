@@ -89,6 +89,37 @@
    (switch-to-buffer (get-buffer-create "*scratch*"))
    (text-mode))
 
+(defun buffer-exists? (name)
+  (= 1 (length
+        (delq nil
+              (mapcar
+               (lambda (buf) (string-match name (buffer-name buf)))
+               (buffer-list))))))
+
+;; window-related global key bindings
+
+(windmove-default-keybindings 'control)
+
+(global-set-key (kbd "C-c b") 'ido-switch-buffer-other-window)
+
+(global-set-key (kbd "s-h") 'switch-to-h-window)
+(global-set-key (kbd "s-j") 'switch-to-j-window)
+(global-set-key (kbd "s-k") 'switch-to-k-window)
+(global-set-key (kbd "s-l") 'switch-to-l-window)
+
+(global-set-key (kbd "H-h") 'put-buffer-in-h-window)
+(global-set-key (kbd "H-j") 'put-buffer-in-j-window)
+(global-set-key (kbd "H-k") 'put-buffer-in-k-window)
+(global-set-key (kbd "H-l") 'put-buffer-in-l-window)
+
+(global-set-key (kbd "C-x H-h") 'find-file-in-h-window)
+(global-set-key (kbd "C-x H-j") 'find-file-in-j-window)
+(global-set-key (kbd "C-x H-k") 'find-file-in-k-window)
+(global-set-key (kbd "C-x H-l") 'find-file-in-l-window)
+
+(global-set-key (kbd "C-x v") 'split-window-right)
+(global-set-key (kbd "C-x h") 'split-window-below)
+
 (global-set-key (kbd "H-s") 'create-scratch-buffer)
 
 (provide 'window-settings)
