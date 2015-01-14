@@ -35,9 +35,8 @@
 (add-to-list 'safe-local-variable-values '(lexical-binding . t))
 (add-to-list 'safe-local-variable-values '(whitespace-line-column . 80))
 
-;; Set this to whatever browser you use
-;; (setq browse-url-browser-function 'browse-url-firefox)
-(setq browse-url-browser-function 'browse-default-macosx-browser)
+(setq browse-url-browser-function 'browse-url-default-macosx-browser)
+(global-set-key (kbd "H-b") 'browse-url-at-point)
 
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
@@ -317,5 +316,44 @@ comment as a filename."
   (lambda () (interactive)
     (let ((case-fold-search isearch-case-fold-search))
       (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
+
+;; Duplicates a line, works with undo, and doesn't mess with the cursor position
+;; HT http://stackoverflow.com/a/998472/1054349
+(defun duplicate-line (arg)
+  "Duplicate current line, leaving point in lower line."
+  (interactive "*p")
+
+  ;; save the point for undo
+  (setq buffer-undo-list (cons (point) buffer-undo-list))
+
+  ;; local variables for start and end of line
+  (let ((bol (save-excursion (beginning-of-line) (point)))
+        eol)
+    (save-excursion
+
+      ;; don't use forward-line for this, because you would have
+      ;; to check whether you are at the end of the buffer
+      (end-of-line)
+      (setq eol (point))
+
+      ;; store the line and disable the recording of undo information
+      (let ((line (buffer-substring bol eol))
+            (buffer-undo-list t)
+            (count arg))
+        ;; insert the line arg times
+        (while (> count 0)
+          (newline)         ;; because there is no newline in 'line'
+          (insert line)
+          (setq count (1- count)))
+        )
+
+      ;; create the undo information
+      (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list)))
+    ) ; end-of-let
+
+  ;; put the point in the lowest line and return
+  (next-line arg))
+
+(global-set-key (kbd "H-d") 'duplicate-line)
 
 (provide 'general-settings)

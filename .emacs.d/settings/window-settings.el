@@ -102,6 +102,7 @@
 
 (global-set-key (kbd "C-c b") 'ido-switch-buffer-other-window)
 
+;; switch using Super (command)
 (global-set-key (kbd "s-h") 'switch-to-h-window)
 (global-set-key (kbd "s-j") 'switch-to-j-window)
 (global-set-key (kbd "s-k") 'switch-to-k-window)
