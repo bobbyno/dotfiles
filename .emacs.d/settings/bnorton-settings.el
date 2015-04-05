@@ -10,5 +10,5 @@
    (interactive)
    (switch-to-file (concat (getenv "HOME") "/Desktop/work in progress/TODO/0a_high_priority_after_on_deck.md")))
 
-(global-set-key (kbd "H-0") 'on-deck)
-(global-set-key (kbd "H-\-") 'backlog)
+(global-set-key (kbd "M-0") 'on-deck)
+(global-set-key (kbd "M-\-") 'backlog)

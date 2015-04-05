@@ -2,7 +2,6 @@ export SHELL=/usr/local/bin/bash
 export EDITOR='emacsclient'
 export LESS="-Nmsx4erX"
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/heroku/bin:$PATH
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export JAVA_HOME=`/usr/libexec/java_home`
 export JDK_HOME=`/usr/libexec/java_home`
@@ -19,17 +18,15 @@ alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/serv
 alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 alias mongostart="mongod run --config /usr/local/etc/mongod.conf"
 alias dev="cd ~/dev"
-alias practice="cd ~/dev/practice/clojure"
-alias es="elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
+alias practice="cd ~/dev/practice"
 alias pi="pip install -r requirements.txt"
-alias emacs="emacs &"
-alias vgs="vagrant global-status"
+alias vgs="vagrant global-status --prune"
 alias utc="date -u"
 alias gpr="git pull --rebase"
+alias emacs="emacs -nw"
+alias ec="emacsclient -n"
 
 PROMPT_DIRTRIM=2
-
-. ~/.outpace_profile
 
 if [ -n "$INSIDE_EMACS" ]; then
   PS1="[\w]\$ "
@@ -37,10 +34,24 @@ else
   PS1="[\t][\u:\w]\$ "
 fi
 
+# python env: virtualenv, virtualenvwrapper, and autoenv
+export WORKON_HOME=$HOME/dev/.virtualenvs
+export PROJECT_HOME=$HOME/dev
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+source /usr/local/bin/virtualenvwrapper.sh
+## autoenv
+source /usr/local/bin/activate.sh
+# end python env
+
 # autocomplete
 complete -C aws_completer aws
 . /usr/local/etc/bash_completion.d/git-completion.bash
-. ~/complete_make_targets.sh
+. /usr/local/etc/bash_completion.d/brew_bash_completion.sh
+. /usr/local/etc/bash_completion.d/lein-completion.bash
+. /usr/local/etc/bash_completion.d/tmux
+. /usr/local/etc/bash_completion.d/docker
+. ~/make_target_completion.bash
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 

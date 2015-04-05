@@ -35,9 +35,6 @@
 (add-to-list 'safe-local-variable-values '(lexical-binding . t))
 (add-to-list 'safe-local-variable-values '(whitespace-line-column . 80))
 
-(setq browse-url-browser-function 'browse-url-default-macosx-browser)
-(global-set-key (kbd "H-b") 'browse-url-at-point)
-
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
 
@@ -118,6 +115,9 @@ comment as a filename."
 ;; set the mac fn key to the hyper key
 (setq ns-function-modifier 'hyper)
 
+;; command is super
+(setq ns-command-modifier 'super)
+
 (set-face-attribute 'default nil
                     :family "DejaVu Sans Mono"
                     :height 170)
@@ -131,17 +131,22 @@ comment as a filename."
 ;; but some modes re-enable bold fonts.
 (disable-bold-fonts)
 
+(global-unset-key (kbd "M-h"))
+
 ;; for those cases, use this keyboard shortcut:
-(global-set-key (kbd "H-b") 'disable-bold-fonts)
+(global-set-key (kbd "M-h b") 'disable-bold-fonts)
 
 ;; indent regions
-(global-set-key (kbd "H-i") 'indent-region)
+(global-set-key (kbd "M-i") 'indent-region)
 
 ;; turn off annoying follow symlink prompt
 (setq vc-follow-symlinks t)
 
 ;; toggle line numbers
 (global-set-key (kbd "C-c l") 'linum-mode)
+
+;; add a space for some margin in terminal mode
+(setq linum-format "%d ")
 
 ;; ispell
 (setq-default ispell-program-name "aspell")
@@ -154,6 +159,11 @@ comment as a filename."
 ;; Turn off auto-save. No #foo# for you.
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+;; ...but some buffers seem to still enable auto-save and backup...
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 ;; No scratch message
 (setq initial-scratch-message nil)
@@ -196,6 +206,16 @@ comment as a filename."
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil)))))))
 (put 'upcase-region 'disabled nil)
+
+;; browse-url tweaks
+(setq browse-url-browser-function 'browse-url-default-macosx-browser)
+(global-set-key (kbd "M-g") 'browse-url-at-point)
+
+;; answer yes or no questions with <y> or <n>
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; auto-refresh all buffers when files have changed on disk
+(global-auto-revert-mode t)
 
 ;; make scripts executable after saving
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
@@ -354,6 +374,15 @@ comment as a filename."
   ;; put the point in the lowest line and return
   (next-line arg))
 
-(global-set-key (kbd "H-d") 'duplicate-line)
+(global-set-key (kbd "M-d") 'duplicate-line)
+
+(define-key key-translation-map (kbd "M-8") (kbd "•"))
+(define-key key-translation-map (kbd "M-p i") (kbd "π"))
+
+(defun save-all ()
+  (interactive)
+  (save-some-buffers t))
+
+(add-hook 'focus-out-hook 'save-all)
 
 (provide 'general-settings)

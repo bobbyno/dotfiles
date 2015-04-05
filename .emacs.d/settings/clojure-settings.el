@@ -97,7 +97,7 @@
     (insert form)
     (cider-repl-return)))
 
-(global-set-key (kbd "H-e") 'cider-eval-expression-at-point-in-repl)
+(global-set-key (kbd "M-e") 'cider-eval-expression-at-point-in-repl)
 
 ;; clj-scratch buffer
 (defun clj-scratch ()
@@ -108,7 +108,7 @@
   (if (not (buffer-exists? "*cider-repl"))
       (cider-jack-in)))
 
-(global-set-key (kbd "H-c") 'clj-scratch)
+(global-set-key (kbd "M-h c") 'clj-scratch)
 
 ;; starter-kit-lisp functions
 ;; Copyright (c) 2008-2010 Phil Hagelberg and contributors

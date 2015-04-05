@@ -121,6 +121,6 @@
 (global-set-key (kbd "C-x v") 'split-window-right)
 (global-set-key (kbd "C-x h") 'split-window-below)
 
-(global-set-key (kbd "H-s") 'create-scratch-buffer)
+(global-set-key (kbd "M-h s") 'create-scratch-buffer)
 
 (provide 'window-settings)
