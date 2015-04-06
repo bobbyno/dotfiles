@@ -12,21 +12,21 @@
 
 (package-initialize)
 
-(defvar my-packages '(exec-path-from-shell
-                      zenburn-theme
-                      markdown-mode
-                      yaml-mode
-                      rainbow-delimiters
-                      clojure-mode
+(defvar my-packages '(autopair
                       cider
+                      clojure-mode
+                      dockerfile-mode
                       elpy
-                      autopair
+                      enh-ruby-mode
                       ido-ubiquitous
+                      jinja2-mode
+                      markdown-mode
+                      neotree
+                      rainbow-delimiters
                       robe
                       smex
-                      enh-ruby-mode
-                      dockerfile-mode
-                      jinja2-mode))
+                      yaml-mode
+                      zenburn-theme))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))

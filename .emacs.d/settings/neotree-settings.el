@@ -1,10 +1,8 @@
-(add-to-list 'load-path "~/.emacs.d/neotree")
 (require 'neotree)
-
-(autoload 'neotree "neotree" "New tree view" t)
 
 (setq neo-smart-open t
       neo-show-header nil
+      neo-show-hidden-files t
       neo-banner-message nil
       neo-create-file-auto-open t
       neo-window-width 25)
