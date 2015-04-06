@@ -19,9 +19,9 @@
                       rainbow-delimiters
                       clojure-mode
                       cider
-                      ws-trim
                       elpy
                       autopair
+                      ido-ubiquitous
                       robe
                       enh-ruby-mode
                       dockerfile-mode
@@ -30,5 +30,9 @@
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+;; manually installed packages
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(load "ws-trim-1.4")
 
 (provide 'packages)
