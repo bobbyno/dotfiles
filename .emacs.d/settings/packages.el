@@ -16,12 +16,15 @@
                       cider
                       clojure-mode
                       dockerfile-mode
+                      elisp-slime-nav
                       elpy
                       enh-ruby-mode
+                      idle-highlight-mode
                       ido-ubiquitous
                       jinja2-mode
                       markdown-mode
                       neotree
+                      paredit
                       rainbow-delimiters
                       robe
                       smex
