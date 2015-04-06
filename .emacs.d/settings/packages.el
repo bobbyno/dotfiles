@@ -23,6 +23,7 @@
                       autopair
                       ido-ubiquitous
                       robe
+                      smex
                       enh-ruby-mode
                       dockerfile-mode
                       jinja2-mode))
