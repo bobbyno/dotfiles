@@ -199,7 +199,4 @@
     (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
               'paredit-mode))
 
-(eval-after-load 'paredit
-  '(define-key paredit-mode-map (kbd "C-w") 'paredit-backward-kill-word))
-
 (provide 'clojure-settings)

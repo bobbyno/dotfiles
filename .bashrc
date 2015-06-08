@@ -12,7 +12,7 @@ alias ll="ls -alG"
 alias more="less"
 alias tree="tree -C"
 alias be="bundle exec"
-alias gremlin="~/dev/gremlin/gremlin-groovy-1.5/gremlin-groovy.sh"
+alias gremlin="~/dev/gremlin/gremlin-groovy-2.6.0/bin/gremlin.sh"
 alias mvn-skip="mvn package -Dmaven.test.skip=true"
 alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
@@ -55,7 +55,3 @@ complete -C aws_completer aws
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-if [ -e $HOME/.homesick/repos/homeshick/homeshick.sh ]; then
-  source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-  source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
-fi
