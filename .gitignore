@@ -1,13 +1,4 @@
 .config/*
-.emacs.d/.smex-items
-.emacs.d/ac-comphist.dat
-.emacs.d/auto-save-list
-.emacs.d/backups
-.emacs.d/elpa
-.emacs.d/eshell
-.emacs.d/places
-.emacs.d/tramp
-.emacs.d/url
 .lein/repl-history
 .lein/self-installs
 .lein/repl-port
