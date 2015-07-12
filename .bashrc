@@ -11,14 +11,14 @@ alias ls="ls -G"
 alias ll="ls -alG"
 alias more="less"
 alias tree="tree -C"
+alias ping="ping -c 10"
 alias be="bundle exec"
-alias gremlin="~/dev/gremlin/gremlin-groovy-2.6.0/bin/gremlin.sh"
+alias gremlin="~/dev/gremlin/latest/bin/gremlin.sh"
 alias mvn-skip="mvn package -Dmaven.test.skip=true"
 alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 alias mongostart="mongod run --config /usr/local/etc/mongod.conf"
 alias dev="cd ~/dev"
-alias practice="cd ~/dev/practice"
 alias pi="pip install -r requirements.txt"
 alias vgs="vagrant global-status --prune"
 alias utc="date -u"
@@ -46,6 +46,7 @@ source /usr/local/bin/activate.sh
 
 # autocomplete
 complete -C aws_completer aws
+. /usr/local/bin/eb_completion.bash
 . /usr/local/etc/bash_completion.d/git-completion.bash
 . /usr/local/etc/bash_completion.d/brew_bash_completion.sh
 . /usr/local/etc/bash_completion.d/lein-completion.bash
