@@ -25,6 +25,7 @@ alias utc="date -u"
 alias gpr="git pull --rebase"
 alias emacs="emacs -nw"
 alias ec="emacsclient -n"
+alias htop="sudo htop"
 
 PROMPT_DIRTRIM=2
 
