@@ -6,7 +6,7 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/heroku/bin:/Applications/M
 export SHELL=/usr/local/bin/bash
 
 alias be="bundle exec"
-alias dev="cd ~/dev"
+alias dev="cd $DEV_HOME"
 alias ec="emacsclient -n"
 alias gpr="git pull --rebase"
 alias gst="git status"
@@ -39,8 +39,8 @@ export LESS="-R -s -F -X"
 export PAGER="less -s -F -X"
 
 # python env: virtualenv, virtualenvwrapper, and autoenv
-export WORKON_HOME=$HOME/dev/.virtualenvs
-export PROJECT_HOME=$HOME/dev
+export WORKON_HOME=$DEV_HOME/.virtualenvs
+export PROJECT_HOME=$DEV_HOME/dev
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
@@ -50,7 +50,6 @@ source /usr/local/bin/activate.sh
 
 # autocomplete
 complete -C aws_completer aws
-. /usr/local/bin/eb_completion.bash
 . /usr/local/etc/bash_completion.d/git-completion.bash
 . /usr/local/etc/bash_completion.d/brew_bash_completion.sh
 . /usr/local/etc/bash_completion.d/lein-completion.bash
@@ -66,4 +65,3 @@ fi
 
 export RBENV_ROOT=/usr/local/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
