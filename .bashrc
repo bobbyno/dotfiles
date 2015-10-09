@@ -13,8 +13,8 @@ alias more="less"
 alias tree="tree -C"
 alias ping="ping -c 10"
 alias be="bundle exec"
-alias gremlin="~/dev/gremlin/latest/bin/gremlin.sh"
 alias mvn-skip="mvn package -Dmaven.test.skip=true"
+alias gremlin="~/dev/gremlin/latest/bin/gremlin.sh"
 alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 alias mongostart="mongod run --config /usr/local/etc/mongod.conf"
@@ -23,6 +23,7 @@ alias pi="pip install -r requirements.txt"
 alias vgs="vagrant global-status --prune"
 alias utc="date -u"
 alias gpr="git pull --rebase"
+alias gst="git status"
 alias emacs="emacs -nw"
 alias ec="emacsclient -n"
 alias htop="sudo htop"
@@ -54,6 +55,12 @@ complete -C aws_completer aws
 . /usr/local/etc/bash_completion.d/tmux
 . /usr/local/etc/bash_completion.d/docker
 . ~/make_target_completion.bash
+
+# user-specific settings that aren't version controlled.
+private_settings="$HOME/.`whoami`.bashrc"
+if [ -e $private_settings ]; then
+    . $private_settings
+fi
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 

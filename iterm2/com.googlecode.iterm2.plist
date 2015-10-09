@@ -1489,9 +1489,9 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>3555 1014 445 270 2560 540 1440 878 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>382 93 924 485 0 0 1440 878 </string>
+	<string>88 365 924 485 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 10 1440 868 0 0 1440 878 </string>
+	<string>623 365 1440 866 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>188 265 1783 1142 0 0 2560 1418 </string>
 	<key>NeverWarnAboutMeta</key>
@@ -2928,6 +2928,10 @@
 			<string>/Users/bnorton/dev/</string>
 		</dict>
 	</array>
+	<key>NoSyncTimeOfLastPromo</key>
+	<real>454929169.08776301</real>
+	<key>NoSyncTimeOfLastPromoDownload</key>
+	<real>465753389.04925197</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2992,7 +2996,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-06-02T01:58:23Z</date>
+	<date>2015-10-07T06:03:53Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -3035,7 +3039,7 @@
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
-	<string>.Lucida Grande UI</string>
+	<string>.Helvetica Neue DeskInterface</string>
 	<key>WindowNumber</key>
 	<true/>
 	<key>WindowStyle</key>
@@ -3047,6 +3051,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.0</string>
+	<string>2.1.1</string>
 </dict>
 </plist>

@@ -1,0 +1,9 @@
+send-keys "cd $pershing" Enter
+send-keys "emacs" Enter
+
+new-window -c $pershing/client -n client-repl
+new-window -c $pershing/service -n service-repl
+new-window -c $pershing -n bash
+
+select-window -t 0
+

@@ -1,5 +1,5 @@
-splitw -h -p 38 'emacs -nw'       # split the window into two parts, ~ϕ
-rotate-window
-selectp -t 0
+send-keys "emacs" Enter
 send-keys -t 0 'M-t'              # show tree nav
+new-window
 send-keys -t 1 'git status' C-j
+select-window -t 0
