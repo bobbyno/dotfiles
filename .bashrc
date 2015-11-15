@@ -27,6 +27,7 @@ alias gst="git status"
 alias emacs="emacs -nw"
 alias ec="emacsclient -n"
 alias htop="sudo htop"
+alias top=htop
 
 PROMPT_DIRTRIM=2
 
