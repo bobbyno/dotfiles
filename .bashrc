@@ -1,33 +1,28 @@
-export SHELL=/usr/local/bin/bash
 export EDITOR='emacsclient'
-export LESS="-Nmsx4erX"
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/heroku/bin:$PATH
-export LSCOLORS=gxfxcxdxbxegedabagacad
 export JAVA_HOME=`/usr/libexec/java_home`
 export JDK_HOME=`/usr/libexec/java_home`
-export RBENV_ROOT=/usr/local/var/rbenv
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/heroku/bin:/Applications/MATLAB_R2014b.app/bin:$PATH
+export SHELL=/usr/local/bin/bash
 
-alias ls="ls -G"
-alias ll="ls -alG"
-alias more="less"
-alias tree="tree -C"
-alias ping="ping -c 10"
 alias be="bundle exec"
-alias mvn-skip="mvn package -Dmaven.test.skip=true"
-alias gremlin="~/dev/gremlin/latest/bin/gremlin.sh"
-alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
-alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
-alias mongostart="mongod run --config /usr/local/etc/mongod.conf"
 alias dev="cd ~/dev"
-alias pi="pip install -r requirements.txt"
-alias vgs="vagrant global-status --prune"
-alias utc="date -u"
+alias ec="emacsclient -n"
 alias gpr="git pull --rebase"
 alias gst="git status"
-alias emacs="emacs -nw"
-alias ec="emacsclient -n"
 alias htop="sudo htop"
+alias ll="ls -alG"
+alias ls="ls -G"
+alias more="less"
+alias mvn-skip="mvn package -Dmaven.test.skip=true"
+alias pi="pip install -r requirements.txt"
+alias ping="ping -c 10"
+alias q="rlwrap ~/q/m32/q"
+alias rlf="rlwrap lein figwheel"
+alias rlr="rlwrap lein repl"
 alias top=htop
+alias tree="tree -C"
+alias utc="date -u"
 
 PROMPT_DIRTRIM=2
 
@@ -36,6 +31,12 @@ if [ -n "$INSIDE_EMACS" ]; then
 else
   PS1="[\t][\u:\w]\$ "
 fi
+
+# pager
+[ `which hilite` ] || echo ".bashrc: You need to install hilite..."
+export LESSOPEN="|/usr/local/bin/src-hilite-lesspipe.sh %s"
+export LESS="-R -s -F -X"
+export PAGER="less -s -F -X"
 
 # python env: virtualenv, virtualenvwrapper, and autoenv
 export WORKON_HOME=$HOME/dev/.virtualenvs
@@ -63,5 +64,6 @@ if [ -e $private_settings ]; then
     . $private_settings
 fi
 
+export RBENV_ROOT=/usr/local/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 

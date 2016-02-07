@@ -1458,9 +1458,11 @@
 	<key>NSFontPanelAttributes</key>
 	<string>1, 4</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dev/opensource/iTerm2-Color-Schemes</string>
+	<string>~/Desktop</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{975, 591}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
+	<string>{712, 710}</string>
 	<key>NSNavPanelExpandedStateForSaveMode</key>
 	<true/>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -1491,7 +1493,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>88 365 924 485 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>623 365 1440 866 0 0 2560 1417 </string>
+	<string>0 191 1280 686 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>188 265 1783 1142 0 0 2560 1418 </string>
 	<key>NeverWarnAboutMeta</key>
@@ -2931,7 +2933,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>454929169.08776301</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>465753389.04925197</real>
+	<real>471570113.79745698</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2940,6 +2942,8 @@
 	<false/>
 	<key>OpenTmuxWindowsIn</key>
 	<integer>0</integer>
+	<key>PMPrintingExpandedStateForPrint2</key>
+	<false/>
 	<key>PassOnControlClick</key>
 	<false/>
 	<key>PasteFromClipboard</key>
@@ -2992,11 +2996,11 @@
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>http://iterm2.com/appcasts/final.xml</string>
+	<string>https://iterm2.com/appcasts/final.xml</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-10-07T06:03:53Z</date>
+	<date>2015-12-11T23:41:53Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -3051,6 +3055,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.1.1</string>
+	<string>2.1.4</string>
 </dict>
 </plist>
