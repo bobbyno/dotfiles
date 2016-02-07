@@ -1,3 +1,9 @@
+# add user-specific settings that aren't version controlled.
+private_settings="$HOME/.`whoami`.bashrc"
+if [ -e $private_settings ]; then
+    . $private_settings
+fi
+
 export EDITOR='emacsclient'
 export JAVA_HOME=`/usr/libexec/java_home`
 export JDK_HOME=`/usr/libexec/java_home`
@@ -56,12 +62,6 @@ complete -C aws_completer aws
 . /usr/local/etc/bash_completion.d/tmux
 . /usr/local/etc/bash_completion.d/docker
 . ~/make_target_completion.bash
-
-# user-specific settings that aren't version controlled.
-private_settings="$HOME/.`whoami`.bashrc"
-if [ -e $private_settings ]; then
-    . $private_settings
-fi
 
 export RBENV_ROOT=/usr/local/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
