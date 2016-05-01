@@ -35,6 +35,4 @@
   default = simple
 [remote "origin"]
   push = HEAD
-[git-pair]
-  authors = Bobby Norton <bobby@testedminds.com>
 

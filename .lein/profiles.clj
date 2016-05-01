@@ -1,6 +1,6 @@
-{:user {:plugins [[cider/cider-nrepl "0.10.2"]
+{:user {:plugins [[cider/cider-nrepl "0.12.0"]
                   [lein-try "0.4.3"]
-                  [lein-exec "0.3.5"]
+                  [lein-exec "0.3.6"]
                   [lein-pprint "1.1.2"]]
         :dependencies [[org.clojure/tools.nrepl "0.2.12"]
                        [pjstadig/humane-test-output "0.7.1"]]

@@ -1,8 +1,10 @@
-# add user-specific settings that aren't version controlled.
+# Add user-specific settings that aren't version controlled:
+## set DEV_HOME in that file
 private_settings="$HOME/.`whoami`.bashrc"
 if [ -e $private_settings ]; then
     . $private_settings
 fi
+###
 
 export EDITOR='emacsclient'
 export JAVA_HOME=`/usr/libexec/java_home`
@@ -29,20 +31,37 @@ alias rlr="rlwrap lein repl"
 alias top=htop
 alias tree="tree -C"
 alias utc="date -u"
+alias diff="colordiff"
 
+# navigation aliases
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+
+# prompt
 PROMPT_DIRTRIM=2
-
 if [ -n "$INSIDE_EMACS" ]; then
   PS1="[\w]\$ "
 else
   PS1="[\t][\u:\w]\$ "
 fi
+###
 
 # pager
 [ `which hilite` ] || echo ".bashrc: You need to install hilite..."
 export LESSOPEN="|/usr/local/bin/src-hilite-lesspipe.sh %s"
 export LESS="-R -s -F -X"
 export PAGER="less -s -F -X"
+###
+
+# autocomplete
+complete -C aws_completer aws
+. /usr/local/etc/bash_completion.d/git-completion.bash
+. /usr/local/etc/bash_completion.d/lein-completion.bash
+. /usr/local/etc/bash_completion.d/tmux
+. ~/make_target_completion.bash
+###
 
 # python env: virtualenv, virtualenvwrapper, and autoenv
 export WORKON_HOME=$DEV_HOME/.virtualenvs
@@ -52,16 +71,9 @@ export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
 ## autoenv
 source /usr/local/bin/activate.sh
-# end python env
+###
 
-# autocomplete
-complete -C aws_completer aws
-. /usr/local/etc/bash_completion.d/git-completion.bash
-. /usr/local/etc/bash_completion.d/brew_bash_completion.sh
-. /usr/local/etc/bash_completion.d/lein-completion.bash
-. /usr/local/etc/bash_completion.d/tmux
-. /usr/local/etc/bash_completion.d/docker
-. ~/make_target_completion.bash
-
+# ruby
 export RBENV_ROOT=/usr/local/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+###
