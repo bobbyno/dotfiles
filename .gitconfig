@@ -28,11 +28,6 @@
   untracked = cyan
 [core]
   excludesfile = "~/.gitignore_global"
-[branch "master"]
-  remote = origin
-  merge = refs/heads/master
 [push]
   default = simple
-[remote "origin"]
-  push = HEAD
 
