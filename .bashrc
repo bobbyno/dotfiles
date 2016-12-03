@@ -10,17 +10,21 @@ export EDITOR='emacsclient'
 export JAVA_HOME=`/usr/libexec/java_home`
 export JDK_HOME=`/usr/libexec/java_home`
 export LSCOLORS=gxfxcxdxbxegedabagacad
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/heroku/bin:/Applications/MATLAB_R2014b.app/bin:$PATH
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/heroku/bin:/Applications/MATLAB_R2014b.app/bin:$(npm bin):$PATH
 export SHELL=/usr/local/bin/bash
 
 alias be="bundle exec"
+alias brewup="brew update && brew cleanup; brew doctor"
 alias dev="cd $DEV_HOME"
+alias diff="colordiff"
 alias ec="emacsclient -n"
 alias gpr="git pull --rebase"
 alias gst="git status"
+alias http="python -m 'SimpleHTTPServer'"
 alias htop="sudo htop"
 alias ll="ls -alG"
 alias ls="ls -G"
+alias marked="/Applications/Marked\ 2.app/Contents/MacOS/Marked\ 2"
 alias more="less"
 alias mvn-skip="mvn package -Dmaven.test.skip=true"
 alias pi="pip install -r requirements.txt"
@@ -31,13 +35,12 @@ alias rlr="rlwrap lein repl"
 alias top=htop
 alias tree="tree -C"
 alias utc="date -u"
-alias diff="colordiff"
 
 # navigation aliases
 alias cd..='cd ..'
 alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
 
 # prompt
 PROMPT_DIRTRIM=2

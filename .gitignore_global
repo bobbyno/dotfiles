@@ -4,3 +4,4 @@
 .nrepl-port
 .lein-*
 figwheel_server.log
+private/*
