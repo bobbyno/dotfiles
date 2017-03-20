@@ -42,14 +42,6 @@ alias ..='cd ..'
 alias ...='cd ../../'
 alias ....='cd ../../../'
 
-# prompt
-PROMPT_DIRTRIM=2
-if [ -n "$INSIDE_EMACS" ]; then
-  PS1="[\w]\$ "
-else
-  PS1="[\t][\u:\w]\$ "
-fi
-
 # pager
 [ `which hilite` ] || echo ".bashrc: You need to install hilite..."
 export LESSOPEN="|/usr/local/bin/src-hilite-lesspipe.sh %s"
@@ -57,11 +49,23 @@ export LESS="-R -s -F -X"
 export PAGER="less -s -F -X"
 
 # autocomplete
+for f in /usr/local/etc/bash_completion.d/*; do
+  . $f
+done
 complete -C aws_completer aws
-. /usr/local/etc/bash_completion.d/git-completion.bash
-. /usr/local/etc/bash_completion.d/lein-completion.bash
-. /usr/local/etc/bash_completion.d/tmux
 . ~/make_target_completion.bash
+
+# prompt
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+
+PROMPT_DIRTRIM=2
+if [ -n "$INSIDE_EMACS" ]; then
+  PS1='[\w]\$ '
+else
+  PS1='[\t][\u:\w] \[\033[01;32m\]$(__git_ps1 "(%s) ")\[\033[00m\]\$ '
+fi
 
 # python env: virtualenv, virtualenvwrapper, and autoenv
 export WORKON_HOME=$DEV_HOME/.virtualenvs

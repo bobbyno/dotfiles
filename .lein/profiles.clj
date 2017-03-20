@@ -2,7 +2,7 @@
                   [lein-try "0.4.3"]
                   [lein-exec "0.3.6"]
                   [lein-pprint "1.1.2"]
-                  [lein-describe "0.3.0-SNAPSHOT"]
+                  [lein-describe "0.2.0"]
                   [lein-topology "0.2.0"]]
         :dependencies [[org.clojure/tools.nrepl "0.2.12"]
                        [pjstadig/humane-test-output "0.7.1"]]
@@ -16,4 +16,3 @@
         :repositories [["clojars" {:sign-releases false
                                    :url "https://clojars.org/repo/"}]]}}
 
-;; [com.jakemccrary/lein-test-refresh "0.3.0"]
